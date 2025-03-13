@@ -1,0 +1,12 @@
+<div id="headericons">
+    <span class="icon" id="levelIcon">{{Level}}級</span>
+</div>
+<span style='font-size: 35px'>{{Reading}}</span>
+<br>
+<script>
+    (function() {
+        const icon = document.getElementById("levelIcon");
+        const level = icon.textContent.trim();
+        icon.classList.add(`level-${level}`);
+    })();
+</script>

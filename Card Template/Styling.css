@@ -1,0 +1,99 @@
+.card {
+    font-family: UD Digi Kyokasho NP-R;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    background-color: white;
+}
+
+.replaybutton {
+display: none;
+}
+
+table {
+    border: 2px solid #333333;
+    border-radius: 5px;
+}
+
+th, td {
+    border: 2px solid #333333;
+    padding: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.grey-box {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.white-box {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.image img {
+    max-width: 25%;
+}
+
+/*Copied from old template*/
+.icon {
+    border: 2px solid;
+    border-color: #333333;
+    border-radius: 10px;
+    padding: 3px 6px 2px;
+    margin-right: 0.5em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Copied from old template*/
+#headericons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/*Icon Colors*/
+.level-1級 {
+    background-color: #FF88C7;
+}
+
+.level-準1級 {
+    background-color: #CC88FF;
+}
+
+.level-2級 {
+    background-color: #88B1FF;
+}
+
+.level-準2級 {
+    background-color: #88FFE1;
+}
+
+.level-3級 {
+    background-color: #9DFF88;
+}
+
+.level-4級 {
+    background-color: #FFF788;
+}
+
+.level-5級 {
+    background-color: #FF8888;
+}

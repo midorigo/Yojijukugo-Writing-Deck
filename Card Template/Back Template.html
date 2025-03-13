@@ -1,0 +1,117 @@
+{{FrontSide}}
+<hr>
+<!--<span class="image">{{Diagram}}</span>-->
+<!--<div>
+    <table>
+        <tr>
+            <td style='font-size:100px'>空</td>
+            <td style='font-size:100px'>前</td>
+            <td style='font-size:100px'>絶</td>
+            <td style='font-size:100px'>後</td>
+        </tr>
+        <tr>
+            <td>
+                10級<br />
+                回数:20<br />
+                くう(53%)<br />
+                空(??%)<br />
+</td>
+            <td>
+                9級<br />
+                回数:20<br />
+                <span style='color: rgb(250, 25, 150)'><b>ぜん(12%)</b></span><br />
+                前(??%)<br />
+            </td>
+            <td>
+                <span style='color: rgb(250, 25, 150)'><b>6級</b></span><br />
+                <span style='color: rgb(250, 25, 150)'><b>回数:18</b></span><br />
+                ぜつ(25%)<br />
+                絶(??%)<br />
+            </td>
+            <td>
+                9級<br />
+                回数:22<br />
+                ご(44%)<br />
+                後(??%)<br />
+            </td>
+        </tr>
+    </table>
+</div>-->
+<div class="grey-box">
+    <div class="white-box">
+        <span style='font-size: 60px'>{{Key}}</span><br>
+        {{Reading}}<br>
+        <div class="container">
+            {{Image}}
+            <center>
+                <table id="levelTable">
+                    <tr>
+                        <td colspan="2" class="center">漢検{{Level}}級</td>
+                    </tr>
+                    <tr>
+                        <td class="center">最低頻度</td>
+                        <td>{{Least_Common_Kanji}}({{Least_Common_Times_Used}})</td>
+                    </tr>
+                    {{#Source}}
+                    <tr>
+                        <td class="center">出典</td>
+                        <td id="tableContent">{{Source}}</td>
+                    </tr>
+                    {{/Source}}
+                    {{#Category}}
+                    <tr>
+                        <td class="center">場面用途</td>
+                        <td id="tableContent">{{Category}}</td>
+                    </tr>
+                    {{/Category}}
+                    {{#Variations}}
+                    <tr>
+                        <td class="center">異形</td>
+                        <td id="tableContent">{{Variations}}</td>
+                    </tr>
+                    {{/Variations}}
+                    {{#Synonyms}}
+                    <tr>
+                        <td class="center">類義語</td>
+                        <td id="tableContent">{{Synonyms}}</td>
+                    </tr>
+                    {{/Synonyms}}
+                </table>
+            </center>
+        </div>
+        <div class="white-box">
+            <b>意味</b>
+            <hr>
+            {{Meaning}}
+        </div>
+    </div>
+    {{#Examples}}
+    <br>
+    <div class="white-box">
+        <b>使い方</b>
+        <hr>
+        <div style="display: inline-block; text-align: left;">{{Examples}}</div>
+    </div>
+    {{/Examples}}
+</div>
+<br>
+<br>
+<span class="replaybutton">{{Audio}}</span>
+
+<script>
+    (function () {
+        const table = document.getElementById('levelTable');
+        const td = document.getElementById("tableContent");
+        let allEmpty = true;
+
+        //I wrote this and I don't understand how it works
+
+        if (td && td.textContent.trim() !== "") {
+            allEmpty = false;
+        }
+
+        if (allEmpty) {
+            table.style.display = 'none';
+        }
+    })();
+</script>
