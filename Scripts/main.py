@@ -8,7 +8,7 @@
 
 import json
 
-input_file = 'Hyakka.json'
+input_file = 'term_bank_1.json'
 output_file = 'output.txt'
 test_file = 'test.txt'
 
