@@ -1,3 +1,11 @@
+#<summary>
+#This script was designed to target a specific Yomitan dictionary, namely "四字熟語の百科事典 rev.2024-06-30", with data taken from 四字熟語の百科事典 (https://idiom-encyclopedia.com/).
+#From the .json, it extracts the relevant information and turns it into a usable format which can be dropped straight into Anki to augment our existing deck, created by another user from 四字熟語辞典オンライン (https://yoji.jitenon.jp/).
+#It first iterates over the .json to produce a more usable format in get_content.
+#Then, it obtains the relevant fields, namely the image and example fields, which are what we want to add to our deck.
+#Finally, it formats those fields into a .txt file that can be imported directly into Anki, adding these fields for each Yojijukugo in our existing deck.
+#</summary>
+
 import json
 
 input_file = 'Hyakka.json'
