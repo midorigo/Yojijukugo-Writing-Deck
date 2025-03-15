@@ -48,9 +48,7 @@ def undict(yomitan_dict):
 		image = get_image(sub_list)
 		usage = get_usage(sub_list)
 
-		term.append(yoji)
-		term.append(image)
-		term.append(usage)
+		term.extend([yoji, image, usage])
 
 		usable_list.append(term)
 		
