@@ -1,3 +1,8 @@
+#<summary>
+#This script targets a specific Yomitan dictionary: "四字熟語の百科事典 rev.2024-06-30" with data taken from 四字熟語の百科事典 (https://idiom-encyclopedia.com/).
+#It takes a .json as input and outputs a .txt which can be dropped directly into Anki to augment existing deck.
+#</summary>
+
 import json
 
 output_file = "output.txt"
