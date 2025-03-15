@@ -20,7 +20,9 @@ def run(input_file):
 
 def undict(yomitan_dict):
 	super_list = []
+	usable_list = []
 
+	#Recursively loop over nested dictionary, ignoring keys while appending values to a sub-list
 	def loop(data):
 		if isinstance(data, dict):
 			for i in data:
@@ -30,18 +32,18 @@ def undict(yomitan_dict):
 				loop(i)
 		else:
 			sub_list.append(data)
-
+	
+	#Append sub-lists to a super-list
 	for i in yomitan_dict:
 		sub_list = []
 		loop(i)
 		super_list.append(sub_list)
 
-	usable_list = []
-
+	#Format relevant data
 	for sub_list in super_list:
 		term = []
 
-		yoji = sub_list[0]
+		yoji = get_yoji(sub_list) 
 		image = get_image(sub_list)
 		usage = get_usage(sub_list)
 
@@ -53,20 +55,28 @@ def undict(yomitan_dict):
 		
 	return usable_list
 
-def get_image(l):
-	image = "\"<img src=\"\"" + l[l.index("img") + 1][4:] + "\"\">\""
+def get_yoji(sub_list):
+	#Yojijukugo is always at index 0
+	yoji = sub_list[0]
+
+	return yoji
+
+def get_image(sub_list):
+	#Image path is identified by the "img" tag directly above it, and is formatted as "img/image.png"
+	image = "\"<img src=\"\"" + sub_list[sub_list.index("img") + 1][4:] + "\"\">\""
 	
 	return image
 
-def get_usage(my_list):
+def get_usage(sub_list):
+	#Usage is identified by "使い方" content. Each example has "span" tag directly above it. First example is 12 lines below, then repeating every 3 lines.
 	examples_list = []
 	examples_str = ""
-	yojijukugo = my_list[0]
+	yojijukugo = sub_list[0]
 
 	i = 0
 
-	while my_list[my_list.index("使い方") + 11 + i * 3] == "span":
-		examples_list.append(get_value_from_index(my_list, "使い方", 12 + i * 3))
+	while sub_list[sub_list.index("使い方") + 11 + i * 3] == "span":
+		examples_list.append(get_value_from_index(sub_list, "使い方", 12 + i * 3))
 		i += 1
 
 	for example in examples_list:
@@ -82,7 +92,6 @@ def get_value_from_index(sub_list, key, offset):
 	return value
 
 #Make script runnable from terminal
-
 if __name__ == "__main__":
 	import sys
 	run(str(sys.argv[1]))
