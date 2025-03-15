@@ -1,4 +1,5 @@
 import json
+from re import sub
 
 output_file = "jitenon_output.txt"
 test_file = "jitenon_testing.txt"
@@ -42,7 +43,14 @@ def undict(yomitan_dict):
 	for sub_list in super_list:
 		term = []
 
-		yoji = get_yoji(sub_list) 
+		yoji = get_yoji(sub_list)
+		reading = get_reading(sub_list)
+		meaning = get_meaning(sub_list)
+		level = get_level(sub_list)
+		source = get_source(sub_list)
+		context = get_context(sub_list)
+		synonyms = get_synonyms(sub_list)
+		variants = get_variants(sub_list)
 
 		term.append(yoji)
 
