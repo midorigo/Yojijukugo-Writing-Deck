@@ -32,10 +32,11 @@ def undict(yomitan_dict):
 	for i in super_list:
 		term = []
 
-		term.append(i[0])
-		term.append(i[1])
-		term.append(get_value_from_index(i, "意味", 10))
-		term.append(get_usage(i))
+		term.append(i[0]) #yoji
+		#term.append(i[1]) #reading
+		term.append(get_image(i))
+		#term.append(get_value_from_index(i, "意味", 10).replace("\n", "")) #meaning
+		term.append(get_usage(i)) #usage
 
 		usable_list.append(term)
 		
@@ -63,6 +64,13 @@ def get_value_from_index(l, k, offset):
 	value = l[i + offset]
 	return value
 
+def get_image(my_list):
+	image = my_list[my_list.index("img") + 1][4:]
+
+	image = "\"<img src=\"\"" + image + "\"\">\""
+
+	return image
+
 def get_usage(my_list):
 	examples_list = []
 	examples_str = ""
@@ -73,8 +81,6 @@ def get_usage(my_list):
 	while my_list[my_list.index("使い方") + 11 + i * 3] == "span":
 		examples_list.append(get_value_from_index(my_list, "使い方", 12 + i * 3))
 		i += 1
-	
-	print(examples_list)
 
 	for example in examples_list:
 		examples_str += "<li>" + example.replace(yojijukugo, f"<span style=\"\"color: rgb(25, 150, 250);\"\"><b>{yojijukugo}</b></span>") + "</li>"
