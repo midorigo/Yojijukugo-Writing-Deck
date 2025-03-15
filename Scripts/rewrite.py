@@ -8,13 +8,9 @@ def run(input_file):
 	with open(input_file, 'r', encoding='utf-8') as input:
 		yomitan_dict = json.load(input)
 	
-	super_list = undict(yomitan_dict)
+	usable_list = undict(yomitan_dict)
 
-	with open(output_file, 'w', encoding='utf-8') as output:
-		for i in super_list:
-			for j in i:
-				output.write(f"{j}\t")
-			output.write("\n")
+	write_to_file(usable_list)
 
 	print(f"Successfully wrote to file: {output_file}")
 
@@ -90,6 +86,11 @@ def get_value_from_index(sub_list, key, offset):
 	index = sub_list.index(key)
 	value = sub_list[index + offset]
 	return value
+
+def write_to_file(usable_list):
+	with open(output_file, 'w', encoding='utf-8') as output:
+		for i in usable_list:
+			output.write("\t".join(i) + "\n")
 
 #Make script runnable from terminal
 if __name__ == "__main__":
