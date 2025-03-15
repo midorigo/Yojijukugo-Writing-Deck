@@ -1,74 +1,61 @@
 import json
 
-output_file = "rewrite_output.txt"
-test_output = "rewrite_test.txt"
+output_file = "output.txt"
 
 def run(input_file):
 	print("Executing...")
 
-	with open(input_file, 'r', encoding='utf-8') as f:
-		yomitan_dict = json.load(f)
+	with open(input_file, 'r', encoding='utf-8') as input:
+		yomitan_dict = json.load(input)
 	
 	super_list = undict(yomitan_dict)
 
-	with open(output_file, 'w', encoding='utf-8') as o:
+	with open(output_file, 'w', encoding='utf-8') as output:
 		for i in super_list:
 			for j in i:
-				o.write(f"{j}\t")
-			o.write("\n")
+				output.write(f"{j}\t")
+			output.write("\n")
 
 	print(f"Successfully wrote to file: {output_file}")
 
 def undict(yomitan_dict):
 	super_list = []
-	
+
+	def loop(data):
+		if isinstance(data, dict):
+			for i in data:
+				loop(data[i])
+		elif isinstance(data, list):
+			for i in data:
+				loop(i)
+		else:
+			sub_list.append(data)
+
 	for i in yomitan_dict:
-		l = []
-		l = loop(i, l)
-		super_list.append(l)
-	
+		sub_list = []
+		loop(i)
+		super_list.append(sub_list)
+
 	usable_list = []
 
-	for i in super_list:
+	for sub_list in super_list:
 		term = []
 
-		term.append(i[0]) #yoji
-		#term.append(i[1]) #reading
-		term.append(get_image(i))
-		#term.append(get_value_from_index(i, "意味", 10).replace("\n", "")) #meaning
-		term.append(get_usage(i)) #usage
+		yoji = sub_list[0]
+		image = get_image(sub_list)
+		usage = get_usage(sub_list)
+
+		term.append(yoji)
+		term.append(image)
+		term.append(usage)
 
 		usable_list.append(term)
 		
 	return usable_list
 
-#<summary>
-#Recursive function which loops through data formatted as nested lists and dictionaries (.json files) and appends values to list l = [].
-#From our perspective, the keys don't tell us anything useful about their respective values, so we discard them and write our own parsing logic.
-#</summary>
-
-def loop(data, l):
-	if isinstance(data, dict):
-		for i in data:
-			loop(data[i], l)
-	elif isinstance(data, list):
-		for i in data:
-			loop(i, l)
-	else:
-		l.append(data)
-
-	return l
-
-def get_value_from_index(l, k, offset):
-	i = l.index(k)
-	value = l[i + offset]
-	return value
-
-def get_image(my_list):
-	image = my_list[my_list.index("img") + 1][4:]
-
-	image = "\"<img src=\"\"" + image + "\"\">\""
-
+def get_image(l):
+	image = "\"<img src=\"\"" + l[l.index("img") + 1][4:] + "\"\">\""
+	
 	return image
 
 def get_usage(my_list):
@@ -88,6 +75,11 @@ def get_usage(my_list):
 	examples_str = "\"<ul>" + examples_str + "</ul>\""
 
 	return examples_str
+
+def get_value_from_index(l, k, offset):
+	i = l.index(k)
+	v = l[i + offset]
+	return v
 
 #Make script runnable from terminal
 
