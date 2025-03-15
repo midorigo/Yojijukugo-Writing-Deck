@@ -76,10 +76,10 @@ def get_usage(my_list):
 
 	return examples_str
 
-def get_value_from_index(l, k, offset):
-	i = l.index(k)
-	v = l[i + offset]
-	return v
+def get_value_from_index(sub_list, key, offset):
+	index = sub_list.index(key)
+	value = sub_list[index + offset]
+	return value
 
 #Make script runnable from terminal
 
