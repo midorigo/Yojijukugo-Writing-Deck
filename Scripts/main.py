@@ -17,6 +17,7 @@ test_file = 'test.txt'
 #In the case that the entry is in a dict, appends [key, value].
 #In the case that the entry is in a list, appends [index, value]...
 #...Where index is the index of the entire array thus far.
+
 def get_content(entry, content):
 	if isinstance(entry, dict):
 		for item in entry:
@@ -64,6 +65,8 @@ def get_examples(content):
 	return examples
 
 def run():
+	print("Executing...")
+
 	with open(input_file, 'r', encoding='utf-8') as file:
 		data = json.load(file)
 
