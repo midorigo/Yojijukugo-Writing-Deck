@@ -10,17 +10,14 @@ def run(input_file):
 		yomitan_dict = json.load(f)
 	
 	super_list = undict(yomitan_dict)
-	super_dict = format_as_dict(super_list)
 
 	with open(output_file, 'w', encoding='utf-8') as o:
-		o.write(f"{super_dict}")
+		for i in super_list:
+			for j in i:
+				o.write(f"{j}\t")
+			o.write("\n")
 
 	print(f"Successfully wrote to file: {output_file}")
-
-#<summary>
-#Recursive function which loops through data formatted as nested lists and dictionaries (.json files) and appends values to list l = [].
-#From our perspective, the keys don't tell us anything useful about their respective values, so we discard them and write our own parsing logic.
-#</summary>
 
 def undict(yomitan_dict):
 	super_list = []
@@ -30,7 +27,24 @@ def undict(yomitan_dict):
 		l = loop(i, l)
 		super_list.append(l)
 	
-	return super_list
+	usable_list = []
+
+	for i in super_list:
+		term = []
+
+		term.append(i[0])
+		term.append(i[1])
+		term.append(get_value_from_index(i, "意味", 10))
+		term.append(get_usage(i))
+
+		usable_list.append(term)
+		
+	return usable_list
+
+#<summary>
+#Recursive function which loops through data formatted as nested lists and dictionaries (.json files) and appends values to list l = [].
+#From our perspective, the keys don't tell us anything useful about their respective values, so we discard them and write our own parsing logic.
+#</summary>
 
 def loop(data, l):
 	if isinstance(data, dict):
@@ -44,21 +58,30 @@ def loop(data, l):
 
 	return l
 
-def format_as_dict(super_list):
-	super_dict = {}
-
-	for i in super_list:
-		yojijukugo = i[0]
-		meaning = get_value_from_list(i, "意味", 3)
-		usage = get_value_from_list(i, "使い方", 2)
-		super_dict[yojijukugo] = {"意味": meaning, "使い方": usage}
-
-	return super_dict
-
-def get_value_from_list(l, k, offset):
+def get_value_from_index(l, k, offset):
 	i = l.index(k)
 	value = l[i + offset]
 	return value
+
+def get_usage(my_list):
+	examples_list = []
+	examples_str = ""
+	yojijukugo = my_list[0]
+
+	i = 0
+
+	while my_list[my_list.index("使い方") + 11 + i * 3] == "span":
+		examples_list.append(get_value_from_index(my_list, "使い方", 12 + i * 3))
+		i += 1
+	
+	print(examples_list)
+
+	for example in examples_list:
+		examples_str += "<li>" + example.replace(yojijukugo, f"<span style=\"\"color: rgb(25, 150, 250);\"\"><b>{yojijukugo}</b></span>") + "</li>"
+
+	examples_str = "\"<ul>" + examples_str + "</ul>\""
+
+	return examples_str
 
 #Make script runnable from terminal
 
