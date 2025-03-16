@@ -80,7 +80,7 @@ def get_meaning(sub_list):
 
 		i += 1
 
-	meaning_str = "\n".join(meaning_list)
+	meaning_str = "".join(meaning_list)
 
 	return meaning_str
 
@@ -88,7 +88,7 @@ def get_level(sub_list):
 	if "漢検級" in sub_list:
 		level = get_value_from_index(sub_list, "漢検級", 4)
 	else:
-		level = None
+		level = ""
 
 	return level
 
@@ -96,51 +96,53 @@ def get_source(sub_list):
 	if "出典" in sub_list:
 		source = get_value_from_index(sub_list, "出典", 2)
 	else:
-		source = None
+		source = ""
 
 	return source
 
 def get_context(sub_list):
-	context_list = []
-	context_str = ""
-
 	if "場面用途" in sub_list:
+		context_list = []
 		i = 0
 
 		while sub_list[sub_list.index("場面用途") + i * 4 + 2] == "a":
-			context_list.append(sub_list[sub_list.index("場面用途")] + i * 4 + 4)
+			context_list.append(sub_list[sub_list.index("場面用途") + i * 4 + 4])
 
-		i += 1
+			i += 1
+
+		context_str = "・".join(context_list)
 	else:
-		context_list = None
+		context_str = ""
 
-	context_str = "・".join(context_list)
+	
 
 	return context_str
 
 def get_synonyms(sub_list):
-	synonym_list = []
-
 	if "類義語" in sub_list:
+		synonym_list = []
+
 		for i in sub_list[sub_list.index("類義語"):]:
-			if i[0] == "t" or "a" or "?":
+			if str(i)[:1] == "t" or "a" or "?":
 				continue
 			elif sub_list[sub_list.index(i) + 1][0] == "t" or "a" or "?":
 				synonym_list.append(i)
 				continue
 			else:
 				break
-	else:
-		synonym_list = None
 
-	synonym_str = "\n".join(synonym_list)
+		synonym_str = "、".join(synonym_list)
+	else:
+		synonym_str = ""
 
 	return synonym_str
 
 def get_variants(sub_list):
-	variant_list = []
+	
 
 	if "異形" in sub_list:
+		variant_list = []
+
 		for i in sub_list[sub_list.index("異形"):]:
 			if i == "td" or "tr":
 				continue
@@ -149,10 +151,10 @@ def get_variants(sub_list):
 				continue
 			else:
 				break
-	else:
-		variant_list = None
 
-	variant_str = "\n".join(variant_list)
+		variant_str = "、".join(variant_list)
+	else:
+		variant_str = ""
 
 	return variant_str
 
