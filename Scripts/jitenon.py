@@ -114,25 +114,21 @@ def get_context(sub_list):
 	else:
 		context_str = ""
 
-	
-
 	return context_str
 
 def get_synonyms(sub_list):
 	if "類義語" in sub_list:
-		synonym_list = []
+		synonyms_list = []
 
-		for i in sub_list[sub_list.index("類義語"):]:
-			print(i)
-			if str(i)[:1] == "t" or "a" or "?":
-				continue
-			elif sub_list[sub_list.index(i) + 1][0] == "t" or "a" or "?":
-				synonym_list.append(i)
+		for i in sub_list[sub_list.index("類義語") + 1:]:
+			if not isinstance(i, str):
+				break
+			elif i == "a" or i == "td" or i == "tr" or i[0] == "?":
 				continue
 			else:
-				break
+				synonyms_list.append(i)
 
-		synonym_str = "、".join(synonym_list)
+		synonym_str = "、".join(synonyms_list)
 	else:
 		synonym_str = ""
 
@@ -140,23 +136,21 @@ def get_synonyms(sub_list):
 
 def get_variants(sub_list):
 	if "異形" in sub_list:
-		variant_list = []
+		variants_list = []
 
-		for i in sub_list[sub_list.index("異形"):]:
-			if i == "td" or "tr":
-				continue
-			elif sub_list[sub_list.index(i) + 2] == "td":
-				variant_list.append(i)
+		for i in sub_list[sub_list.index("異形") + 1:]:
+			if i == "th" or not isinstance(i, str):
+				break
+			elif i == "td" or i == "tr":
 				continue
 			else:
-				break
+				variants_list.append(i)
 
-		variant_str = "、".join(variant_list)
+		variants_str = "、".join(variants_list)
 	else:
-		variant_str = ""
+		variants_str = ""
 
-	return variant_str
-
+	return variants_str
 
 def get_value_from_index(sub_list, key, offset):
 	index = sub_list.index(key)
