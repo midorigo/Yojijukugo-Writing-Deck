@@ -123,6 +123,7 @@ def get_synonyms(sub_list):
 		synonym_list = []
 
 		for i in sub_list[sub_list.index("類義語"):]:
+			print(i)
 			if str(i)[:1] == "t" or "a" or "?":
 				continue
 			elif sub_list[sub_list.index(i) + 1][0] == "t" or "a" or "?":
@@ -138,8 +139,6 @@ def get_synonyms(sub_list):
 	return synonym_str
 
 def get_variants(sub_list):
-	
-
 	if "異形" in sub_list:
 		variant_list = []
 
