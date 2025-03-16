@@ -1,6 +1,6 @@
-#Yojijukugo Writing Deck
+# Yojijukugo Writing Deck
 
-##Overview
+## Overview
 
 This is an Anki flashcard deck for learning yojijukugo by, designed to help study for the Kanji Kentei. 
 I used the earliest form of this deck to pass the Kanji Kentei Level 2 in January of 2025.
@@ -11,7 +11,7 @@ The deck is mainly composited from two existing Yomitan dictionaries, which scra
 - 四字熟語の百科事典 (https://idiom-encyclopedia.com/)
 - 四字熟語辞典オンライン (https://yoji.jitenon.jp/)
 
-###Fields:
+### Fields:
 
 1. Yojijukugo
 2. Reading
@@ -24,13 +24,13 @@ The deck is mainly composited from two existing Yomitan dictionaries, which scra
 9. Variant forms (from 四字熟語辞典オンライン)
 10. Synonyms (from 四字熟語辞典オンライン)
 
-###Preview
+### Preview
 
 Back side of card:
 
 ![image](https://github.com/user-attachments/assets/5a0530c7-dcee-48e0-bc89-7f749c109cb4)
 
-##Background
+## Background
 
-##Usage
+## Usage
 
