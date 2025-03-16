@@ -1,5 +1,4 @@
 import json
-from re import sub
 
 output_file = "jitenon_output.txt"
 test_file = "jitenon_testing.txt"
@@ -47,12 +46,12 @@ def undict(yomitan_dict):
 		reading = get_reading(sub_list)
 		meaning = get_meaning(sub_list)
 		level = get_level(sub_list)
-		#source = get_source(sub_list)
-		#context = get_context(sub_list)
-		#synonyms = get_synonyms(sub_list)
-		#variants = get_variants(sub_list)
+		source = get_source(sub_list)
+		context = get_context(sub_list)
+		synonyms = get_synonyms(sub_list)
+		variants = get_variants(sub_list)
 
-		term.extend([yoji, reading, level, meaning])
+		term.extend([yoji, reading, level, meaning, source, context, synonyms, variants])
 
 		usable_list.append(term)
 		
@@ -92,6 +91,71 @@ def get_level(sub_list):
 		level = None
 
 	return level
+
+def get_source(sub_list):
+	if "出典" in sub_list:
+		source = get_value_from_index(sub_list, "出典", 2)
+	else:
+		source = None
+
+	return source
+
+def get_context(sub_list):
+	context_list = []
+	context_str = ""
+
+	if "場面用途" in sub_list:
+		i = 0
+
+		while sub_list[sub_list.index("場面用途") + i * 4 + 2] == "a":
+			context_list.append(sub_list[sub_list.index("場面用途")] + i * 4 + 4)
+
+		i += 1
+	else:
+		context_list = None
+
+	context_str = "・".join(context_list)
+
+	return context_str
+
+def get_synonyms(sub_list):
+	synonym_list = []
+
+	if "類義語" in sub_list:
+		for i in sub_list[sub_list.index("類義語"):]:
+			if i[0] == "t" or "a" or "?":
+				continue
+			elif sub_list[sub_list.index(i) + 1][0] == "t" or "a" or "?":
+				synonym_list.append(i)
+				continue
+			else:
+				break
+	else:
+		synonym_list = None
+
+	synonym_str = "\n".join(synonym_list)
+
+	return synonym_str
+
+def get_variants(sub_list):
+	variant_list = []
+
+	if "異形" in sub_list:
+		for i in sub_list[sub_list.index("異形"):]:
+			if i == "td" or "tr":
+				continue
+			elif sub_list[sub_list.index(i) + 2] == "td":
+				variant_list.append(i)
+				continue
+			else:
+				break
+	else:
+		variant_list = None
+
+	variant_str = "\n".join(variant_list)
+
+	return variant_str
+
 
 def get_value_from_index(sub_list, key, offset):
 	index = sub_list.index(key)
